@@ -1,0 +1,15 @@
+.quoteContainer {
+  display: flex;
+  padding: 30px 25px;
+  align-items: start;
+}
+
+p:nth-child(2) {
+  font-weight: bold;
+  padding-top: 10px;
+}
+
+.quote {
+  padding-right: 10px;
+  color: white;
+}

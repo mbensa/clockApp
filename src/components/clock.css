@@ -1,0 +1,28 @@
+.clockContainer {
+  padding: 0 25px;
+}
+
+.greeting {
+  display: flex;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.greeting > img {
+  margin-right: 20px;
+}
+
+.time {
+  display: flex;
+  color: white;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+
+.time > h1 {
+  margin-right: 5px;
+}
+
+.location {
+  color: white;
+}
