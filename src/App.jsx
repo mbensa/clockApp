@@ -1,11 +1,10 @@
 import { Component } from "react";
 import "./App.css";
-import { Icon } from "./components/icon";
-import { Text } from "./components/text";
 import { Button } from "./components/button";
 import { Image } from "./components/image";
 import { Quote } from "./components/quote";
 import { Clock } from "./components/clock";
+import { Info } from "./components/info";
 
 const data = {
   datetime: "2021-11-27T05:03:39.056Z",
@@ -13,25 +12,37 @@ const data = {
   timezone: "BST",
 };
 
+const infoData = {
+  timezone: "Europe/London",
+  dayOfYear: 295,
+  dayOfWeek: 5,
+  weekNumber: 42,
+};
+
 class App extends Component {
+  worldTimeUpdater = () => {
+    const myTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    console.log(myTz);
+
+    setInterval(() => {
+      fetch(`http://worldtimeapi.org/api/timezone/${myTz}`)
+        .then((response) => {
+          if (response.ok) {
+            const data = response.json();
+            console.log(data);
+          } else {
+            console.log("INTERNAL ERROR ", response);
+          }
+        })
+        .catch((error) => console.log("ERROR", error));
+    }, 6e4);
+  };
+
+  componentDidMount() {
+    this.worldTimeUpdater();
+  }
+
   render() {
-    // const quote = document.querySelector(".QuoteText");
-    // const author = document.querySelector(".QuoteAuthor");
-
-    // async function renderQuote() {
-    //   const response = await fetch("https://api.quotable.io/random");
-    //   const data = await response.json();
-    //   if (response.ok) {
-    //     quote.textContent = data.content;
-    //     author.textContent = data.author;
-    //   } else {
-    //     quote.textContent = "An error occured";
-    //     console.log(data);
-    //   }
-    // }
-
-    // renderQuote();
-
     return (
       <div className="app">
         <Quote
@@ -43,6 +54,7 @@ class App extends Component {
           <Clock data={data}></Clock>
           <Button text="MORE" icon="arrow" />
         </div>
+        <Info data={infoData} />
       </div>
     );
   }
