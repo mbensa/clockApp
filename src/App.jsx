@@ -6,7 +6,7 @@ import { Quote } from "./components/quote";
 import { Clock } from "./components/clock";
 import { Info } from "./components/info";
 
-const data = {
+const fakedata = {
   datetime: "2021-11-27T05:03:39.056Z",
   location: "IN LONDON, UK",
   timezone: "BST",
@@ -20,22 +20,40 @@ const infoData = {
 };
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { data: fakedata, info: infoData };
+  }
+
   worldTimeUpdater = () => {
     const myTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     console.log(myTz);
 
-    setInterval(() => {
+    setTimeout(() => {
       fetch(`http://worldtimeapi.org/api/timezone/${myTz}`)
         .then((response) => {
           if (response.ok) {
-            const data = response.json();
-            console.log(data);
+            response.json().then((data) => {
+              this.setState({
+                data: {
+                  datetime: data.datetime,
+                  timezone: data.abbreviation,
+                  location: fakedata.location,
+                },
+                info: {
+                  timezone: data.timezone,
+                  dayOfYear: data.day_of_year,
+                  dayOfWeek: data.day_of_week,
+                  weekNumber: data.week_number,
+                },
+              });
+            });
           } else {
             console.log("INTERNAL ERROR ", response);
           }
         })
         .catch((error) => console.log("ERROR", error));
-    }, 6e4);
+    }, 3000);
   };
 
   componentDidMount() {
@@ -43,6 +61,8 @@ class App extends Component {
   }
 
   render() {
+    const { data, info } = this.state;
+
     return (
       <div className="app">
         <Quote
@@ -54,7 +74,7 @@ class App extends Component {
           <Clock data={data}></Clock>
           <Button text="MORE" icon="arrow" />
         </div>
-        <Info data={infoData} />
+        <Info data={info} />
       </div>
     );
   }
