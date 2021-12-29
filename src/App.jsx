@@ -6,54 +6,50 @@ import { Quote } from "./components/quote";
 import { Clock } from "./components/clock";
 import { Info } from "./components/info";
 
-const fakedata = {
-  datetime: "2021-11-27T05:03:39.056Z",
-  location: "IN LONDON, UK",
-  timezone: "BST",
-};
-
-const infoData = {
-  timezone: "Europe/London",
-  dayOfYear: 295,
-  dayOfWeek: 5,
-  weekNumber: 42,
-};
-
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { data: fakedata, info: infoData };
+    this.state = { infoVisibility: false };
   }
 
   worldTimeUpdater = () => {
     const myTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     console.log(myTz);
 
-    setTimeout(() => {
+    const worldTimeApiPromise = new Promise((resolve, reject) => {
       fetch(`http://worldtimeapi.org/api/timezone/${myTz}`)
-        .then((response) => {
-          if (response.ok) {
-            response.json().then((data) => {
-              this.setState({
-                data: {
-                  datetime: data.datetime,
-                  timezone: data.abbreviation,
-                  location: fakedata.location,
-                },
-                info: {
-                  timezone: data.timezone,
-                  dayOfYear: data.day_of_year,
-                  dayOfWeek: data.day_of_week,
-                  weekNumber: data.week_number,
-                },
-              });
-            });
-          } else {
-            console.log("INTERNAL ERROR ", response);
-          }
-        })
-        .catch((error) => console.log("ERROR", error));
-    }, 3000);
+        .then((data) => resolve(data.json()))
+        .catch(reject);
+    });
+
+    const locationPromise = new Promise((resolve, reject) => {
+      fetch(`https://api.freegeoip.app/json/?apikey=c42b25c0-68db-11ec-a1e5-2b9cb6d8cb04`)
+        .then((data) => resolve(data.json()))
+        .catch(reject);
+    });
+
+    Promise.all([worldTimeApiPromise, locationPromise]).then((response) => {
+      const [worldTimeData, locationData] = response;
+
+      this.setState({
+        data: {
+          datetime: worldTimeData.datetime,
+          timezone: worldTimeData.abbreviation,
+          location: `in ${locationData.city}, ${locationData.country_name}`,
+        },
+        info: {
+          datetime: worldTimeData.datetime,
+          timezone: worldTimeData.timezone,
+          dayOfYear: worldTimeData.day_of_year,
+          dayOfWeek: worldTimeData.day_of_week,
+          weekNumber: worldTimeData.week_number,
+        },
+      });
+    });
+  };
+
+  handleInfoVisibility = () => {
+    this.setState({ infoVisibility: !this.state.infoVisibility });
   };
 
   componentDidMount() {
@@ -61,20 +57,24 @@ class App extends Component {
   }
 
   render() {
-    const { data, info } = this.state;
+    const { data, info, infoVisibility } = this.state;
+    if (!data && !info) {
+      return null;
+    }
 
     return (
       <div className="app">
-        <Quote
-          quote="The science of operations, as derived from mathematics more especially, is a science of itself, and has its own abstract thruth and value."
-          author="Ada Lovelace"
-        />
+        <Quote />
         <Image datetime={data.datetime}></Image>
         <div className="bottomContainer">
           <Clock data={data}></Clock>
-          <Button text="MORE" icon="arrow" />
+          {infoVisibility ? (
+            <Button text="LESS" icon="arrowUp" onClick={this.handleInfoVisibility} />
+          ) : (
+            <Button text="MORE" icon="arrowDown" onClick={this.handleInfoVisibility} />
+          )}
         </div>
-        <Info data={info} />
+        {infoVisibility && <Info data={info} />}
       </div>
     );
   }

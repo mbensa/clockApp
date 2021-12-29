@@ -40,7 +40,10 @@ export class Clock extends Component {
       <div className="clockContainer">
         <div className="greeting">
           <Icon iconType={timeOfDay} />
-          <Text heading="h4" text={greeting} />
+          <Text
+            heading="h4"
+            text={window.matchMedia("(min-width: 768px)").matches ? `${greeting}, IT'S CURRENTLY` : greeting}
+          />
         </div>
         <div className="time">
           <Text heading="h1" text={formattedTime} />

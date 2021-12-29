@@ -1,7 +1,13 @@
 .bgContainer {
-  background-color: #979797;
+  background: #979797;
   opacity: 0.9;
   padding: 50px 30px;
+}
+
+.bgContainer.night {
+  background: black;
+  opacity: 0.75;
+  color: white;
 }
 
 .group {
@@ -44,6 +50,10 @@
     width: 2px;
     height: 15%;
     right: 50%;
+  }
+
+  .bgContainer.night .groupContainer:first-child::after {
+    border-left: 1px solid white;
   }
 
   .group {

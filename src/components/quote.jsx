@@ -1,30 +1,48 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import {Button} from './button';
-import {Text} from './text';
-import './quote.css';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { Button } from "./button";
+import { Text } from "./text";
+import "./quote.css";
 
 export class Quote extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  quoteUpdater = () => {
+    fetch("https://api.quotable.io/random").then((response) => {
+      if (response.ok) {
+        response.json().then((data) => {
+          this.setState({
+            author: data.author,
+            quote: data.content,
+          });
+        });
+      }
+    });
+  };
+
+  componentDidMount() {
+    this.quoteUpdater();
+  }
+
   render() {
-    const {quote, author} = this.props;
+    const { author, quote } = this.state;
 
-    const quoteClass = classNames(
-      'quote'
-    );
+    const quoteClass = classNames("quote");
 
-    const rootClass = classNames(
-      'quoteContainer'
-    )
+    const rootClass = classNames("quoteContainer");
 
-    return(
+    return (
       <div className={rootClass}>
         <blockquote className={quoteClass}>
-          <Text text={quote}/>
-          <Text text={author}/>
+          <Text text={quote} />
+          <Text text={author} />
         </blockquote>
-        <Button icon="refresh"/>
+        <Button icon="refresh" onClick={this.quoteUpdater} />
       </div>
-    )
+    );
   }
 }

@@ -2,15 +2,21 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Text } from "./text";
 import "./info.css";
+import classNames from "classnames";
 
 export class Info extends Component {
   render() {
     const {
-      data: { timezone, dayOfWeek, dayOfYear, weekNumber },
+      data: { timezone, dayOfWeek, dayOfYear, weekNumber, datetime },
     } = this.props;
 
+    const currHour = new Date(datetime).getHours();
+    const timeOfDay = currHour >= 5 && currHour < 18 ? "" : "night";
+
+    const bgContainerClass = classNames("bgContainer", timeOfDay);
+
     return (
-      <div className="bgContainer">
+      <div className={bgContainerClass}>
         <div className="groupContainer">
           <div className="group">
             <Text heading="h6" text="CURRENT TIMEZONE" />
@@ -43,5 +49,6 @@ Info.propTypes = {
     dayOfWeek: PropTypes.number,
     dayOfYear: PropTypes.number,
     weekNumber: PropTypes.number,
+    datetime: PropTypes.string,
   }),
 };
