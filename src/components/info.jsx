@@ -34,7 +34,7 @@ export class Info extends Component {
             <Text heading="h2" text={String(dayOfWeek)} />
           </div>
           <div className="group groupLast">
-            <Text heading="h5" text="WEEK NUMBER" />
+            <Text heading="h6" text="WEEK NUMBER" />
             <Text heading="h2" text={String(weekNumber)} />
           </div>
         </div>

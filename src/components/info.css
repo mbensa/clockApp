@@ -43,17 +43,12 @@
 }
 
 @media (min-width: 1024px) {
-  .groupContainer:first-child::after {
-    content: "";
-    position: absolute;
-    border-left: 1px solid #303030;
-    width: 2px;
-    height: 15%;
-    right: 50%;
+  .groupContainer:first-child {
+    border-right: 1px solid #303030;
   }
 
-  .bgContainer.night .groupContainer:first-child::after {
-    border-left: 1px solid white;
+  .bgContainer.night .groupContainer:first-child {
+    border-right: 1px solid white;
   }
 
   .group {
