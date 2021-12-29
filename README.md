@@ -56,8 +56,8 @@ Users should be able to:
 ## Author
 
 - Website - [Mojca Bensa](https://www.mbensa.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- Frontend Mentor - [@mbensa](https://www.frontendmentor.io/profile/mbensa)
+- GitHub - [mbensa](https://github.com/mbensa/clockApp)
 
 **Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
 
