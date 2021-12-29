@@ -6,6 +6,15 @@
   border-radius: 28px;
   padding: 8px 18px;
   width: 130px;
+  cursor: pointer;
+}
+
+.button-text-icon:hover {
+  color: grey;
+}
+
+.button-text-icon:hover > img {
+  filter: opacity(0.5);
 }
 
 .button-text-icon > p {
@@ -32,4 +41,5 @@
 .button-icon {
   border: none;
   background: none;
+  cursor: pointer;
 }
