@@ -14,7 +14,6 @@ class App extends Component {
 
   worldTimeUpdater = () => {
     const myTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    console.log(myTz);
 
     const worldTimeApiPromise = new Promise((resolve, reject) => {
       fetch(`http://worldtimeapi.org/api/timezone/${myTz}`)

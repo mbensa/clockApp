@@ -1,7 +1,7 @@
 .quoteContainer {
   display: flex;
   padding: 30px 25px;
-  align-items: start;
+  align-items: flex-start;
 }
 
 p:nth-child(2) {
