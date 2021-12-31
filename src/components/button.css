@@ -21,6 +21,10 @@
   letter-spacing: 3.75px;
 }
 
+.button-text-icon > span {
+  letter-spacing: 3.75px;
+}
+
 .button-text-icon > img {
   height: 30px;
   width: 30px;
