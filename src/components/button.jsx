@@ -15,7 +15,7 @@ export class Button extends Component {
 
     return (
       <button type="button" className={buttonClass} {...rest}>
-        {text ? <Text text={text} /> : null}
+        {text ? <Text heading="span" text={text} /> : null}
         <Icon iconType={icon} />
       </button>
     );
