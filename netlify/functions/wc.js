@@ -8,8 +8,6 @@ exports.handler = async function (event, context) {
       .then((data) => data.json())
       .then((data) => data);
 
-    console.log("DATA ==> ", data);
-
     return {
       statusCode: 200,
       body: JSON.stringify({

@@ -32,16 +32,16 @@ class App extends Component {
 
       this.setState({
         data: {
-          datetime: worldTimeData.datetime,
-          timezone: worldTimeData.abbreviation,
+          datetime: worldTimeData.data.datetime,
+          timezone: worldTimeData.data.abbreviation,
           location: `in ${locationData.city}, ${locationData.country_name}`,
         },
         info: {
-          datetime: worldTimeData.datetime,
-          timezone: worldTimeData.timezone,
-          dayOfYear: worldTimeData.day_of_year,
-          dayOfWeek: worldTimeData.day_of_week,
-          weekNumber: worldTimeData.week_number,
+          datetime: worldTimeData.data.datetime,
+          timezone: worldTimeData.data.timezone,
+          dayOfYear: worldTimeData.data.day_of_year,
+          dayOfWeek: worldTimeData.data.day_of_week,
+          weekNumber: worldTimeData.data.week_number,
         },
       });
     });
