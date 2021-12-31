@@ -4,7 +4,11 @@ const API = "http://worldtimeapi.org/api/timezone/";
 
 exports.handler = async function (event, context) {
   try {
-    const data = await fetch(`${API}${event.queryStringParameters.tz}`);
+    const data = await fetch(`${API}${event.queryStringParameters.tz}`)
+      .then((data) => data.json())
+      .then((data) => data);
+
+    console.log("DATA ==> ", data);
 
     return {
       statusCode: 200,
