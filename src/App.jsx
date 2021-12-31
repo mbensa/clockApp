@@ -16,9 +16,7 @@ class App extends Component {
     const myTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     const worldTimeApiPromise = new Promise((resolve, reject) => {
-      fetch(`http://worldtimeapi.org/api/timezone/${myTz}`, {
-        mode: "no-cors",
-      })
+      fetch(`./netlify/functions/wc?tz=${myTz}`)
         .then((data) => resolve(data.json()))
         .catch(reject);
     });
