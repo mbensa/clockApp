@@ -22,7 +22,7 @@ class App extends Component {
     });
 
     const locationPromise = new Promise((resolve, reject) => {
-      fetch(`https://api.freegeoip.app/json/?apikey=c42b25c0-68db-11ec-a1e5-2b9cb6d8cb04`)
+      fetch(`.netlify/functions/geoip`)
         .then((data) => resolve(data.json()))
         .catch(reject);
     });
