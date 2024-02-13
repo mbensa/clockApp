@@ -34,7 +34,7 @@ class App extends Component {
         data: {
           datetime: worldTimeData.data.datetime,
           timezone: worldTimeData.data.abbreviation,
-          location: `in ${locationData.city}, ${locationData.country_name}`,
+          location: `in ${locationData.data.city}, ${locationData.data.country_name}`,
         },
         info: {
           datetime: worldTimeData.data.datetime,
